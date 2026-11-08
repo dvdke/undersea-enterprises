@@ -243,7 +243,7 @@ forever(function () {
     }
 })
 forever(function () {
-    if (Broadcast_String == "exit game") {
+    if (Broadcast_String == "Exit Game") {
         Broadcast_String = "0"
     }
 })
