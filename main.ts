@@ -3,11 +3,17 @@ namespace SpriteKind {
     export const tool = SpriteKind.create()
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    // CHEST OPENING
-    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed)) {
+    // CHEST OPENING LEVEL 1
+    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed) && (currentLevel == 1)) {
         tiles.setTileAt(tiles.getTileLocation(0, 6), assets.tile`myTile`)
         shovel = sprites.create(assets.image`Shovel`, SpriteKind.tool)
         shovel.setPosition(10, 90)
+    }
+    // CHEST OPENING LEVEL 2
+    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed) && (currentLevel == 2)) {
+        tiles.setTileAt(tiles.getTileLocation(9, 3), assets.tile`myTile`)
+        key = sprites.create(assets.image`key`, SpriteKind.tool)
+        key.setPosition(155, 40)
     }
     if (shovelfollow == true) {
         column = Math.floor(player1.x / 16)
@@ -111,6 +117,7 @@ function Start_Level_Two () {
 function Define_tutorialMovement2_Fail () {
     tutorialMovement2 = "Please Retry the test."
 }
+let key: Sprite = null
 let Credits2 = ""
 let playerLocation: tiles.Location = null
 let currentLevel = 0
@@ -135,6 +142,7 @@ let row2 = 0
 let column2 = 0
 let playerTile = null
 let dirtLocation2 = null
+let keyfollow = false
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
@@ -170,11 +178,21 @@ forever(function () {
     }
 })
 forever(function () {
-    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
+    if (currentLevel == 1 &&
+       tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
         shovelfollow = true
     }
     if (shovelfollow == true) {
         shovel.setPosition(player1.x - 10, player1.y - 10)
+    }
+})
+forever(function () {
+    if (currentLevel == 2 &&
+       tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
+        keyfollow = true
+    }
+    if (keyfollow == true) {
+        key.setPosition(player1.x - 10, player1.y - 10)
     }
 })
 forever(function () {
