@@ -3,7 +3,6 @@ namespace SpriteKind {
     export const tool = SpriteKind.create()
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-
     // CHEST OPENING
     if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed)) {
         tiles.setTileAt(tiles.getTileLocation(0, 6), assets.tile`myTile`)
@@ -11,20 +10,14 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         shovel.setPosition(10, 90)
     }
     if (shovelfollow == true) {
-        let column = Math.floor(player1.x / 16)
-        let row = Math.floor(player1.y / 16)
-        let dirtLocation = tiles.getTileLocation(column, row + 1)
-
-        if (
-            tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles5) ||
-            tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles6) ||
-            tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles7)
-        ) {
+        column = Math.floor(player1.x / 16)
+        row = Math.floor(player1.y / 16)
+        dirtLocation = tiles.getTileLocation(column, row + 1)
+        if (tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles5) || tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles6) || tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles7)) {
             tiles.setWallAt(dirtLocation, false)
             tiles.setTileAt(dirtLocation, assets.tile`transparency16`)
             dugLocations.push(dirtLocation)
         }
-
     }
 })
 function Define_tutorialMovement2_Pass () {
@@ -109,6 +102,7 @@ function Define_tutorialMovement2_Fail () {
     tutorialMovement2 = "Please Retry the test."
 }
 let Credits2 = ""
+let playerLocation: tiles.Location = null
 let startingMenu: Sprite = null
 let tutorialComplete = ""
 let Broadcast_String = ""
@@ -117,20 +111,31 @@ let tutorialMovement1 = ""
 let tutorial1 = ""
 let helpMenu: Sprite = null
 let tutorialMovement2 = ""
-let nextLocation: tiles.Location = null
-let currentLocation: tiles.Location = null
+let dugLocations: tiles.Location[] = []
+let dirtLocation: tiles.Location = null
 let row = 0
 let column = 0
 let shovelfollow = false
 let shovel: Sprite = null
 let player1: Sprite = null
+let dirtLocation2 = null
 let playerTile = null
-let dirtLocation = null
-let dugLocations: tiles.Location[] = []
+let column2 = 0
+let row2 = 0
+let currentLocation = null
+let nextLocation = null
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
 shovel = sprites.create(assets.image`transparent`, SpriteKind.tool)
+game.onUpdate(function () {
+    playerLocation = player1.tilemapLocation()
+    for (let location of dugLocations) {
+        if (playerLocation.column == location.column && playerLocation.row == location.row) {
+            game.gameOver(true)
+        }
+    }
+})
 forever(function () {
     if (controller.anyButton.isPressed()) {
         controller.moveSprite(player1, 100, 100)
@@ -188,17 +193,5 @@ forever(function () {
 forever(function () {
     if (Broadcast_String == "exit game") {
         Broadcast_String = "0"
-    }
-})
-game.onUpdate(function () {
-    let playerLocation = player1.tilemapLocation()
-
-    for (let location of dugLocations) {
-        if (
-            playerLocation.column == location.column &&
-            playerLocation.row == location.row
-        ) {
-            game.gameOver(true)
-        }
     }
 })

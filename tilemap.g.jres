@@ -10,6 +10,18 @@
         "tilemapTile": true,
         "displayName": "myTile"
     },
+    "tile2": {
+        "data": "hwQQABAAAADMzMzMzMzMzLy7u7u7u7vLvMzMzMzMzMu8y8zMzMzMy7zMzMzMzMzLvMzMzLzMzMu8zLzMzMzMy7zMzMzMzMzLvLzMzMzMy8u8zMzMzMzMy7zMzMzMzMzLvMy8zLzMzMu8zMzMzMzMy7zMzMzMzMzLvMzLzMy8zMu8zMzMzMzMyw==",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true,
+        "displayName": "wrapLeft"
+    },
+    "tile3": {
+        "data": "hwQQABAAAAC8zMzMzMzMy7zMzLzMzMzLvLzMzMy8zMu8zMzMzMzMy7zMzMzMzMzLvMzMzLzMzMu8zLzMzMzMy7zMzMzMzMzLvMzMzMzMzMu8zMzMzMzMy7zMzMzMzMzLvMy8zLzMzMu8zMzMzMzMy7zMzMzMzMvLvMzMzMzMzMu8zMzMzMzMyw==",
+        "mimeType": "image/x-mkcd-f4",
+        "tilemapTile": true,
+        "displayName": "myTile1"
+    },
     "level1": {
         "id": "level1",
         "mimeType": "application/mkcd-tilemap",
@@ -34,6 +46,66 @@
             "sprites.dungeon.chestClosed"
         ],
         "displayName": "level1Blocked"
+    },
+    "Level2Start1": {
+        "id": "Level2Start1",
+        "mimeType": "application/mkcd-tilemap",
+        "data": "MTAwYTAwMDgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwZDAwMDAwMDAwMDAwMDA2MDcwMDAyMDAwMDAwMDAxMDExMDEwNTAwMDMwMDAwMDAwMDBlMGYwMjA0MDAwMDAwMDAwMDAwMGMwMDAzMDAwMDAwMDAwMDAwMDAwODA5MTIwMTAxMDEwMTA1MDgwOTBhMGIwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMjAwMDAwMDAwMDIwMDAwMDAwMjIwMDAwMDAyMjIyMDAwMDAwMDIwMDAwMDAwMDIyMDAwMDAwMjIyMg==",
+        "tileset": [
+            "myTiles.transparency16",
+            "sprites.builtin.oceanSand6",
+            "sprites.builtin.oceanSand10",
+            "sprites.builtin.oceanSand12",
+            "sprites.builtin.oceanSand15",
+            "sprites.builtin.oceanSand7",
+            "sprites.builtin.coral1",
+            "sprites.builtin.coral5",
+            "sprites.dungeon.darkGroundNorthWest0",
+            "sprites.dungeon.darkGroundNorth",
+            "sprites.dungeon.darkGroundSouthEast1",
+            "sprites.dungeon.darkGroundCenter",
+            "sprites.dungeon.doorLockedEast",
+            "sprites.builtin.oceanSand4",
+            "myTiles.tile2",
+            "myTiles.tile3",
+            "sprites.builtin.coral4",
+            "sprites.dungeon.chestClosed",
+            "sprites.builtin.oceanSand5"
+        ],
+        "displayName": "Level2Start"
+    },
+    "level2Room1": {
+        "id": "level2Room1",
+        "mimeType": "application/mkcd-tilemap",
+        "data": "MTAwYTAwMDgwMDA2MDIwMDAwMDAwMDAwMDAwMDAwMDcwMzAwMTExMzAwMDAwMDAwMDAwNzAzMDAwYzBkMDAwMDAwMDAwMDA1MDQwMDBmMGUwMDEyMTMxNDAwMDAwMDAwMGIxMDAwMDEwNjAyMTUwNjAyMDAwMDAwMDAwOTA3MGEwNjA3MDMwMDAwMDAwMDA5MDcwNzA3MDUwNDE2MTcxODAxMDgwNzA3MDcwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMA==",
+        "tileset": [
+            "myTiles.transparency16",
+            "sprites.dungeon.darkGroundNorthWest0",
+            "sprites.dungeon.darkGroundNorthEast0",
+            "sprites.dungeon.darkGroundEast",
+            "sprites.dungeon.darkGroundSouthEast0",
+            "sprites.dungeon.darkGroundSouth",
+            "sprites.dungeon.darkGroundNorth",
+            "sprites.dungeon.darkGroundCenter",
+            "sprites.dungeon.darkGroundSouthEast1",
+            "sprites.dungeon.darkGroundWest",
+            "sprites.dungeon.darkGroundSouthWest1",
+            "sprites.builtin.oceanSand13",
+            "sprites.builtin.oceanSand5",
+            "sprites.builtin.oceanSand7",
+            "sprites.builtin.oceanSand9",
+            "sprites.builtin.oceanSand8",
+            "sprites.builtin.oceanSand15",
+            "sprites.builtin.coral0",
+            "sprites.builtin.coral1",
+            "sprites.builtin.coral2",
+            "sprites.builtin.coral5",
+            "sprites.dungeon.chestClosed",
+            "sprites.builtin.forestTiles5",
+            "sprites.builtin.forestTiles6",
+            "sprites.builtin.forestTiles7"
+        ],
+        "displayName": "level2Room2"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
