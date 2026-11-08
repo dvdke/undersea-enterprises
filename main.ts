@@ -101,6 +101,18 @@ function Main_Menu () {
 function Define_tutorialMovement2_Fail () {
     tutorialMovement2 = "Please Retry the test."
 }
+function Start_Level_Two() {
+    currentLevel = 2
+    dugLocations = []
+    shovelfollow = false
+    shovel.setImage(assets.image`transparent`)
+
+    player1.setVelocity(0, 0)
+    tiles.setCurrentTilemap(tilemap`Level2Start`)
+    tiles.placeOnTile(player1, tiles.getTileLocation(4, 5))
+
+    game.showLongText("Level Two", DialogLayout.Center)
+}
 let Credits2 = ""
 let playerLocation: tiles.Location = null
 let startingMenu: Sprite = null
@@ -124,15 +136,19 @@ let column2 = 0
 let row2 = 0
 let currentLocation = null
 let nextLocation = null
+let currentLevel = 0
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
 shovel = sprites.create(assets.image`transparent`, SpriteKind.tool)
 game.onUpdate(function () {
-    playerLocation = player1.tilemapLocation()
+    if (currentLevel == 1)
+        playerLocation = player1.tilemapLocation()
+
     for (let location of dugLocations) {
         if (playerLocation.column == location.column && playerLocation.row == location.row) {
-            game.gameOver(true)
+            Start_Level_Two()
+            break
         }
     }
 })
@@ -144,6 +160,9 @@ forever(function () {
 forever(function () {
     if (Broadcast_String == "play game") {
         Broadcast_String = "0"
+        shovelfollow = false
+        currentLevel = 1
+        shovel.setImage(assets.image`transparent`)
         dugLocations = []
         music.setVolume(120)
         music.play(pianoRoll.createSong(assets.song`intro`), music.PlaybackMode.InBackground)
