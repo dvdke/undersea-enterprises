@@ -10,26 +10,21 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         shovel = sprites.create(assets.image`Shovel`, SpriteKind.tool)
         shovel.setPosition(10, 90)
     }
-
-    // TILE IMAGE DIAGNOSTIC
     if (shovelfollow == true) {
-
         let column = Math.floor(player1.x / 16)
-        let row = Math.floor((player1.y + 8) / 16)
+        let row = Math.floor(player1.y / 16)
+        let dirtLocation = tiles.getTileLocation(column, row + 1)
 
-        let testLocation = tiles.getTileLocation(column, row)
+        if (
+            tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles5) ||
+            tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles6) ||
+            tiles.tileAtLocationEquals(dirtLocation, sprites.builtin.forestTiles7)
+        ) {
+            tiles.setWallAt(dirtLocation, false)
+            tiles.setTileAt(dirtLocation, assets.tile`transparency16`)
+            dugLocations.push(dirtLocation)
+        }
 
-        let actualTile = tiles.tileImageAtLocation(testLocation)
-
-        let preview = sprites.create(actualTile, SpriteKind.tool)
-        preview.setPosition(120, 40)
-
-        game.showLongText(
-            "Column: " + column +
-            "\nRow: " + row +
-            "\nTile image displayed at top right!",
-            DialogLayout.Bottom
-        )
     }
 })
 function Define_tutorialMovement2_Pass () {
@@ -131,6 +126,7 @@ let shovel: Sprite = null
 let player1: Sprite = null
 let playerTile = null
 let dirtLocation = null
+let dugLocations: tiles.Location[] = []
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
@@ -143,6 +139,7 @@ forever(function () {
 forever(function () {
     if (Broadcast_String == "play game") {
         Broadcast_String = "0"
+        dugLocations = []
         music.setVolume(120)
         music.play(pianoRoll.createSong(assets.song`intro`), music.PlaybackMode.InBackground)
         player1 = sprites.create(assets.image`fisk`, SpriteKind.Player)
@@ -191,5 +188,17 @@ forever(function () {
 forever(function () {
     if (Broadcast_String == "exit game") {
         Broadcast_String = "0"
+    }
+})
+game.onUpdate(function () {
+    let playerLocation = player1.tilemapLocation()
+
+    for (let location of dugLocations) {
+        if (
+            playerLocation.column == location.column &&
+            playerLocation.row == location.row
+        ) {
+            game.gameOver(true)
+        }
     }
 })
