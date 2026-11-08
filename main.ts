@@ -15,6 +15,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         key = sprites.create(assets.image`key`, SpriteKind.tool)
         key.setPosition(155, 40)
     }
+    // SHOVEL DIGGING LOGIC
     if (shovelfollow == true) {
         column = Math.floor(player1.x / 16)
         row = Math.floor(player1.y / 16)
@@ -23,6 +24,21 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             tiles.setWallAt(dirtLocation, false)
             tiles.setTileAt(dirtLocation, assets.tile`transparency16`)
             dugLocations.push(dirtLocation)
+        }
+    }
+    // KEY UNLOCKING LOGIC
+        if (currentLevel == 2 && keyfollow) {
+        let playerTile = player1.tilemapLocation()
+
+        for (let lockLocation of tiles.getTilesByType(sprites.dungeon.doorLockedEast)) {
+            let columnDistance = Math.abs(playerTile.column - lockLocation.column)
+            let rowDistance = Math.abs(playerTile.row - lockLocation.row)
+
+            if (columnDistance + rowDistance == 1) {
+                tiles.setWallAt(lockLocation, false)
+                tiles.setTileAt(lockLocation, assets.tile`transparency16`)
+                break
+            }
         }
     }
 })
@@ -150,11 +166,12 @@ shovel = sprites.create(assets.image`transparent`, SpriteKind.tool)
 game.onUpdate(function () {
     if (currentLevel == 1) {
         playerLocation = player1.tilemapLocation()
-    }
-    for (let location of dugLocations) {
-        if (playerLocation.column == location.column && playerLocation.row == location.row) {
-            Start_Level_Two()
-            break;
+    
+        for (let location of dugLocations) {
+            if (playerLocation.column == location.column && playerLocation.row == location.row) {
+                Start_Level_Two()
+                break;
+            }
         }
     }
 })
