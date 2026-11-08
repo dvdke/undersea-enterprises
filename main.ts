@@ -98,23 +98,22 @@ function Main_Menu () {
         }
     })
 }
-function Define_tutorialMovement2_Fail () {
-    tutorialMovement2 = "Please Retry the test."
-}
-function Start_Level_Two() {
+function Start_Level_Two () {
     currentLevel = 2
     dugLocations = []
     shovelfollow = false
     shovel.setImage(assets.image`transparent`)
-
     player1.setVelocity(0, 0)
     tiles.setCurrentTilemap(tilemap`Level2Start`)
     tiles.placeOnTile(player1, tiles.getTileLocation(4, 5))
-
     game.showLongText("Level Two", DialogLayout.Center)
+}
+function Define_tutorialMovement2_Fail () {
+    tutorialMovement2 = "Please Retry the test."
 }
 let Credits2 = ""
 let playerLocation: tiles.Location = null
+let currentLevel = 0
 let startingMenu: Sprite = null
 let tutorialComplete = ""
 let Broadcast_String = ""
@@ -130,25 +129,24 @@ let column = 0
 let shovelfollow = false
 let shovel: Sprite = null
 let player1: Sprite = null
-let dirtLocation2 = null
-let playerTile = null
-let column2 = 0
-let row2 = 0
-let currentLocation = null
 let nextLocation = null
-let currentLevel = 0
+let currentLocation = null
+let row2 = 0
+let column2 = 0
+let playerTile = null
+let dirtLocation2 = null
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
 shovel = sprites.create(assets.image`transparent`, SpriteKind.tool)
 game.onUpdate(function () {
-    if (currentLevel == 1)
+    if (currentLevel == 1) {
         playerLocation = player1.tilemapLocation()
-
+    }
     for (let location of dugLocations) {
         if (playerLocation.column == location.column && playerLocation.row == location.row) {
             Start_Level_Two()
-            break
+            break;
         }
     }
 })
