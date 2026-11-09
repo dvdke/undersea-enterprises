@@ -4,13 +4,13 @@ namespace SpriteKind {
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     // CHEST OPENING LEVEL 1
-    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed) && (currentLevel == 1)) {
+    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed) && currentLevel == 1) {
         tiles.setTileAt(tiles.getTileLocation(0, 6), assets.tile`myTile`)
         shovel = sprites.create(assets.image`Shovel`, SpriteKind.tool)
         shovel.setPosition(10, 90)
     }
     // CHEST OPENING LEVEL 2
-    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed) && (currentLevel == 2)) {
+    if (tiles.tileAtLocationEquals(player1.tilemapLocation(), sprites.dungeon.chestClosed) && currentLevel == 2) {
         tiles.setTileAt(tiles.getTileLocation(9, 3), assets.tile`myTile`)
         key = sprites.create(assets.image`key`, SpriteKind.tool)
         key.setPosition(155, 40)
@@ -27,17 +27,15 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         }
     }
     // KEY UNLOCKING LOGIC
-        if (currentLevel == 2 && keyfollow) {
-        let playerTile = player1.tilemapLocation()
-
+    if (currentLevel == 2 && keyfollow) {
+        playerTile = player1.tilemapLocation()
         for (let lockLocation of tiles.getTilesByType(sprites.dungeon.doorLockedEast)) {
-            let columnDistance = Math.abs(playerTile.column - lockLocation.column)
-            let rowDistance = Math.abs(playerTile.row - lockLocation.row)
-
+            columnDistance = Math.abs(playerTile.column - lockLocation.column)
+            rowDistance = Math.abs(playerTile.row - lockLocation.row)
             if (columnDistance + rowDistance == 1) {
                 tiles.setWallAt(lockLocation, false)
                 tiles.setTileAt(lockLocation, assets.tile`transparency16`)
-                break
+                break;
             }
         }
     }
@@ -133,10 +131,8 @@ function Start_Level_Two () {
 function Define_tutorialMovement2_Fail () {
     tutorialMovement2 = "Please Retry the test."
 }
-let key: Sprite = null
 let Credits2 = ""
 let playerLocation: tiles.Location = null
-let currentLevel = 0
 let startingMenu: Sprite = null
 let tutorialComplete = ""
 let Broadcast_String = ""
@@ -145,20 +141,25 @@ let tutorialMovement1 = ""
 let tutorial1 = ""
 let helpMenu: Sprite = null
 let tutorialMovement2 = ""
+let rowDistance = 0
+let columnDistance = 0
+let playerTile: tiles.Location = null
+let keyfollow = false
 let dugLocations: tiles.Location[] = []
 let dirtLocation: tiles.Location = null
 let row = 0
 let column = 0
 let shovelfollow = false
+let key: Sprite = null
+let currentLevel = 0
 let shovel: Sprite = null
 let player1: Sprite = null
-let nextLocation = null
-let currentLocation = null
-let row2 = 0
-let column2 = 0
-let playerTile = null
 let dirtLocation2 = null
-let keyfollow = false
+let playerTile2 = null
+let column2 = 0
+let row2 = 0
+let currentLocation = null
+let nextLocation = null
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
@@ -166,13 +167,17 @@ shovel = sprites.create(assets.image`transparent`, SpriteKind.tool)
 game.onUpdate(function () {
     if (currentLevel == 1) {
         playerLocation = player1.tilemapLocation()
-    
         for (let location of dugLocations) {
             if (playerLocation.column == location.column && playerLocation.row == location.row) {
                 Start_Level_Two()
                 break;
             }
         }
+    }
+})
+forever(function () {
+    if (Broadcast_String == "Exit Game") {
+        Broadcast_String = "0"
     }
 })
 forever(function () {
@@ -195,8 +200,7 @@ forever(function () {
     }
 })
 forever(function () {
-    if (currentLevel == 1 &&
-       tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
+    if (currentLevel == 1 && tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
         shovelfollow = true
     }
     if (shovelfollow == true) {
@@ -204,8 +208,7 @@ forever(function () {
     }
 })
 forever(function () {
-    if (currentLevel == 2 &&
-       tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
+    if (currentLevel == 2 && tiles.tileAtLocationEquals(player1.tilemapLocation(), assets.tile`myTile`)) {
         keyfollow = true
     }
     if (keyfollow == true) {
@@ -240,10 +243,5 @@ forever(function () {
         game.showLongText(tutorialAbilities, DialogLayout.Center)
         game.showLongText(tutorialComplete, DialogLayout.Center)
         Main_Menu()
-    }
-})
-forever(function () {
-    if (Broadcast_String == "Exit Game") {
-        Broadcast_String = "0"
     }
 })
