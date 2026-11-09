@@ -129,10 +129,18 @@ function Start_Level_Two () {
     tiles.setCurrentTilemap(tilemap`Level2Start`)
     tiles.placeOnTile(player1, tiles.getTileLocation(4, 5))
     game.showLongText("Level Two", DialogLayout.Center)
+    currentRoom = 1
+}
+function Start_Level_Two_Room_Two() {
+    currentRoom = 2
+    player1.setVelocity(0, 0)
+    tiles.setCurrentTilemap(tilemap`level2Room2`)
+    tiles.placeOnTile(player1, tiles.getTileLocation(4,5))
 }
 function Define_tutorialMovement2_Fail () {
     tutorialMovement2 = "Please Retry the test."
 }
+let currentRoom = 0
 let key: Sprite = null
 let Credits2 = ""
 let playerLocation: tiles.Location = null
@@ -159,10 +167,12 @@ let column2 = 0
 let playerTile = null
 let dirtLocation2 = null
 let keyfollow = false
+
 Main_Menu()
 scene.setBackgroundImage(assets.image`bg`)
 player1 = sprites.create(assets.image`transparent1`, SpriteKind.Player)
 shovel = sprites.create(assets.image`transparent`, SpriteKind.tool)
+
 game.onUpdate(function () {
     if (currentLevel == 1) {
         playerLocation = player1.tilemapLocation()
@@ -172,6 +182,13 @@ game.onUpdate(function () {
                 Start_Level_Two()
                 break;
             }
+        }
+    } else if (currentLevel == 2 && currentRoom == 1) {
+        playerLocation = player1.tilemapLocation()
+
+        if (playerLocation.column == 9 &&
+            playerLocation.row == 5) { 
+            Start_Level_Two_Room_Two()
         }
     }
 })
